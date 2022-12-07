@@ -17,6 +17,10 @@ class CurrencyCard extends StatelessWidget {
     required this.index,
   });
 
+  bool isEven(int index) {
+    return index % 2 == 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Transform.translate(
@@ -24,7 +28,7 @@ class CurrencyCard extends StatelessWidget {
       child: Container(
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-            color: index % 2 == 0 ? Colors.white : _blackColor,
+            color: isEven(index) ? Colors.white : _blackColor,
             borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(30),
@@ -37,7 +41,7 @@ class CurrencyCard extends StatelessWidget {
                   Text(
                     name,
                     style: TextStyle(
-                      color: index % 2 == 0 ? _blackColor : Colors.white,
+                      color: isEven(index) ? _blackColor : Colors.white,
                       fontSize: 32,
                       fontWeight: FontWeight.w600,
                     ),
@@ -49,7 +53,7 @@ class CurrencyCard extends StatelessWidget {
                     children: [
                       Text(amount,
                           style: TextStyle(
-                            color: index % 2 == 0 ? _blackColor : Colors.white,
+                            color: isEven(index) ? _blackColor : Colors.white,
                             fontSize: 20,
                           )),
                       const SizedBox(
@@ -58,7 +62,7 @@ class CurrencyCard extends StatelessWidget {
                       Text(
                         code,
                         style: TextStyle(
-                          color: index % 2 == 0
+                          color: isEven(index)
                               ? _blackColor
                               : Colors.white.withOpacity(0.8),
                           fontSize: 20,
@@ -74,7 +78,7 @@ class CurrencyCard extends StatelessWidget {
                   scale: 2,
                   child: Icon(
                     icon,
-                    color: index % 2 == 0 ? _blackColor : Colors.white,
+                    color: isEven(index) ? _blackColor : Colors.white,
                     size: 96,
                   ),
                 ),
