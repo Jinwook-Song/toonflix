@@ -12,20 +12,19 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  int counter = 0;
+  List<int> numbers = [];
 
   void handleCounter(CalcMethod method) {
     switch (method) {
       case CalcMethod.plus:
         setState(() {
-          counter++;
+          numbers.add(numbers.length);
         });
         break;
       case CalcMethod.minus:
-        // modify
-        counter--;
-        // notify to flutter
-        setState(() {});
+        setState(() {
+          numbers.removeLast();
+        });
         break;
     }
   }
@@ -45,11 +44,17 @@ class _AppState extends State<App> {
               fontSize: 30,
             ),
           ),
-          Text(
-            '$counter',
-            style: const TextStyle(
-              fontSize: 30,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var number in numbers)
+                Text(
+                  '$number',
+                  style: const TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
