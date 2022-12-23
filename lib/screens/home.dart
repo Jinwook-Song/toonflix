@@ -9,14 +9,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int totalSec = 1500; // 25 minutes
+  static const initalCount = 1500; // 25 minutes
+  int totalSec = initalCount;
   bool isRunning = false;
+  int totalPomodoros = 0;
   late Timer timer;
 
   void handleTick(Timer timer) {
-    setState(() {
-      totalSec--;
-    });
+    if (totalSec == 0) {
+      setState(() {
+        isRunning = false;
+        totalPomodoros++;
+        totalSec = initalCount;
+      });
+      timer.cancel();
+    } else {
+      setState(() {
+        totalSec--;
+      });
+    }
   }
 
   void handleStart() {
@@ -36,6 +47,11 @@ class _HomeState extends State<Home> {
     });
   }
 
+  String timeFormmat(int seconds) {
+    var duration = Duration(seconds: seconds);
+    return duration.toString().split('.').first.substring(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +62,7 @@ class _HomeState extends State<Home> {
           child: Container(
             alignment: Alignment.bottomCenter,
             child: Text(
-              totalSec.toString(),
+              timeFormmat(totalSec),
               style: TextStyle(
                 color: Theme.of(context).cardColor,
                 fontSize: 89,
@@ -91,7 +107,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Text(
-                        '0',
+                        totalPomodoros.toString(),
                         style: TextStyle(
                           color: Theme.of(context).textTheme.headline1!.color,
                           fontSize: 58,
