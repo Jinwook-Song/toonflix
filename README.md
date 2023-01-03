@@ -313,3 +313,45 @@ class Home extends StatelessWidget {
   }
 }
 ```
+
+### Listview (여러 항목을 나타낼 때 적합)
+
+- basic
+  ```dart
+  return ListView(
+                children: [
+                  for (var webtoon in snapshot.data!) Text(webtoon.title)
+                ],
+              );
+  ```
+- Listview.builder
+  - 보이는 부분만 build (최적화)
+  ```dart
+  return ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: snapshot.data!.length,
+    itemBuilder: (context, index) {
+      print(index);
+      var webtoon = snapshot.data![index];
+      return Text(webtoon.title);
+    },
+  );
+  ```
+- Listview.seperator
+  - 최적화 + 리스트와 리스트 사이에 구분할 수 있는 widget
+  ```dart
+  return ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  print(index);
+                  var webtoon = snapshot.data![index];
+                  return Text(webtoon.title);
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: 10,
+                  );
+                },
+              );
+  ```
