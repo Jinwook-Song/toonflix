@@ -2,33 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:toonflix/models/webtoon_model.dart';
 import 'package:toonflix/services/api.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Home extends StatelessWidget {
+  Home({super.key});
 
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  List<WebtoonModel> webtoons = [];
-  bool isReady = false;
-
-  void callWebToonApi() async {
-    webtoons = await ApiService.getTodaysToons();
-    isReady = true;
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    callWebToonApi();
-  }
+  Future<List<WebtoonModel>> webtoons = ApiService.getTodaysToons();
 
   @override
   Widget build(BuildContext context) {
-    print(isReady);
-    print(webtoons);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -42,6 +22,18 @@ class _HomeState extends State<Home> {
             fontWeight: FontWeight.w500,
           ),
         ),
+      ),
+      body: FutureBuilder(
+        future: webtoons,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const Text('Succeeded with data');
+          } else if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          } else {
+            return const Text('Loading...');
+          }
+        },
       ),
     );
   }
