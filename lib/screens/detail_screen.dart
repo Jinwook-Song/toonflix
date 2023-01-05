@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:toonflix/models/webtoon_detail_model.dart';
+import 'package:toonflix/models/webtoon_episode_model.dart';
+import 'package:toonflix/services/api.dart';
 
-class Detail extends StatelessWidget {
+class Detail extends StatefulWidget {
   final title, thumb, id;
 
   const Detail({
@@ -9,6 +12,22 @@ class Detail extends StatelessWidget {
     required this.thumb,
     required this.id,
   });
+
+  @override
+  State<Detail> createState() => _DetailState();
+}
+
+class _DetailState extends State<Detail> {
+  late Future<WebtoonDetailModel> webtoon;
+  late Future<List<WebtoonEpisodeModel>> episodes;
+
+  @override
+  void initState() {
+    super.initState();
+    webtoon = ApiService.getToonById(widget.id);
+    episodes = ApiService.getLatestEpisodesById(widget.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +37,7 @@ class Detail extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.green,
         title: Text(
-          title,
+          widget.title,
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w500,
@@ -33,7 +52,7 @@ class Detail extends StatelessWidget {
           Column(
             children: [
               Hero(
-                tag: id,
+                tag: widget.id,
                 child: Container(
                   // width: 250,
                   decoration: const BoxDecoration(
@@ -46,14 +65,14 @@ class Detail extends StatelessWidget {
                         )
                       ]),
                   clipBehavior: Clip.hardEdge,
-                  child: Image.network(thumb),
+                  child: Image.network(widget.thumb),
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
-                title,
+                widget.title,
                 style: const TextStyle(
                   fontSize: 18,
                 ),
