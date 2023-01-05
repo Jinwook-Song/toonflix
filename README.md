@@ -455,3 +455,24 @@ class Home extends StatelessWidget {
   }
 }
 ```
+
+### Navigator.push
+
+애니메이션 효과를 통해 다른 페이지로 이동한듯한 느낌을 준다. 실제로는 다른 stateless widget을 보여줄 뿐
+
+```dart
+GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Detail(
+                title: title,
+                thumb: thumb,
+                id: id,
+              ),
+							fullscreenDialog: true,
+            ));
+      },
+)
+```
