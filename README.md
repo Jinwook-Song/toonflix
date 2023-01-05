@@ -476,3 +476,27 @@ GestureDetector(
       },
 )
 ```
+
+### Hero
+
+tag로 id를 주게되면 연결된듯한 animation 효과를 준다. (framer motion 과 같은)
+
+```dart
+Hero(
+                tag: id,
+                child: Container(
+                  // width: 250,
+                  decoration: const BoxDecoration(
+                      // borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 10,
+                          offset: Offset(3, 5),
+                          color: Colors.black45,
+                        )
+                      ]),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.network(thumb),
+                ),
+              ),
+```
