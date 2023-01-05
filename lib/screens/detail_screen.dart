@@ -47,38 +47,69 @@ class _DetailState extends State<Detail> {
       body: Column(
         children: [
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
           Column(
             children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  // width: 250,
-                  decoration: const BoxDecoration(
-                      // borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 10,
-                          offset: Offset(3, 5),
-                          color: Colors.black45,
-                        )
-                      ]),
-                  clipBehavior: Clip.hardEdge,
-                  child: Image.network(widget.thumb),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Hero(
+                    tag: widget.id,
+                    child: Container(
+                      width: 250,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: const [
+                            BoxShadow(
+                              blurRadius: 10,
+                              offset: Offset(3, 5),
+                              color: Colors.black45,
+                            )
+                          ]),
+                      clipBehavior: Clip.hardEdge,
+                      child: Image.network(widget.thumb),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 10,
-              ),
-              Text(
-                widget.title,
-                style: const TextStyle(
-                  fontSize: 18,
-                ),
+                height: 20,
               ),
             ],
           ),
+          FutureBuilder(
+            future: webtoon,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.about,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        '${snapshot.data!.genre} / ${snapshot.data!.age}',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                );
+              }
+              return const Text('...');
+            },
+          )
         ],
       ),
     );
