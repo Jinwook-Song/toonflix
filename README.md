@@ -597,3 +597,28 @@ class _DetailState extends State<Detail> {
   }
 }
 ```
+
+---
+
+## url_launcher
+
+`flutter pub add url_launcher`
+
+[docs](https://pub.dev/packages/url_launcher)
+
+```dart
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>sms</string>
+  <string>tel</string>
+</array>
+```
+
+usage:
+
+```dart
+static const String baseUrl = 'https://comic.naver.com/webtoon/detail?';
+  onButtonTap() async {
+    await launchUrlString('${baseUrl}titleId=$webtoonId&no=${episode.id}');
+  }
+```
