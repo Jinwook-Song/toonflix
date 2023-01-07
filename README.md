@@ -1,10 +1,10 @@
 # toonflix
 
-| 프로젝트 기간 | 22.11.27 ~   |
-| ------------- | ------------ |
-| 프로젝트 목적 | Flutter tour |
-| Github        |              |
-| Docs          |              |
+| 프로젝트 기간 | 22.11.27 ~ 23.01.07                      |
+| ------------- | ---------------------------------------- |
+| 프로젝트 목적 | Flutter tour                             |
+| Github        | https://github.com/Jinwook-Song/toonflix |
+| Docs          | https://pub.dev/                         |
 
 ---
 
